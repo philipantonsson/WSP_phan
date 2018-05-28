@@ -1,71 +1,55 @@
 <?php
 
+//Övning 1.b Ange anslutningsuppgifter
+$host = 'localhost'; 
+$dbname = 'blogg'; 
+$user = 'admin'; 
+$password = 'kaka123';
+
+//Övning 4 - Se till att information som hämtas är associativ. 
+$attr = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC);
+
+//Övning 1.c Skapa ett PDO-objekt
+$pdo = new PDO("mysql:dbname=$dbname;host=$host", $user, $password, $attr);
+
+//Övning 2. Testar anslutning
+if($pdo) {
+    
+    // Övning 5.1 - Skapande av ny array, $model
+    $model = array();
+    
+    //Övning 3 - Använd anslutning och rätta den felaktiga koden.
+    echo "<pre>";
+    foreach($pdo->query('SELECT * FROM Posts') as $row) {
+        // Övning 5.2 - Lägg till information från databas i array.
+        $model = array( // Någonting saknas på den här raden. Ett litet positivt tecken.
+            $row['ID'] => array(
+                'slug' => ?,
+                'title' => ?,
+                'author' => ?, 
+                'date' => ?,
+                'text' => ?
+            ),
+        )
+    }
+    echo "</pre>";
+
+
+} 
+else { 
+    print_r($pdo->errorInfo());
+}
+
+
+f
+
+
+
 //Simple array for topics - Övning 4 (http://porkforge.mardby.se/index.php?title=PHP_Laboration_3_-_Array_och_loopar#.C3.96vning_4)
 //$model = array("Första inlägget","Snart är det vår","Robin Presenterar sig","Senaste inlägget")
 
 //2D Associative array for full posts - Övning 9 (http://porkforge.mardby.se/index.php?title=PHP_Laboration_3_-_Array_och_loopar#.C3.96vning_9_-_g.C3.B6r_2D_associative_array)
-
-//anslutnigsuppgifter till databasen  
-$host = 'localhost'; 
-$dbname = 'blogg'; 
-$user = 'admin'; 
-$password = '';
-
-//skapar attributet till PDO-obejekt  
-
-$attr = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC);
-
-//inställning för databas-anslutning
-
-$dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
-
-
-// skapar  PDO-obejekt  
-$pdo = new PDO("mysql:dbname=$dbname;host=$host", $user, $password,$attr);
-
-//ansluter till databsen och använder frågor  
-
-if($pdo) {
-$model = array ();
-echo "<pre>";
-foreach($pdo->query('SELECT * FROM posts') as $row) {
-print_r($row); }
-echo "</pre>";
-    
-    
-} else { print_r($pdo->errorInfo());
-}
-
-
-//testar vår anslutning 
-
-
-if($pdo) {
-echo "Database connected!";
-    
-echo "<pre>";
-  foreach($pdo->query('SELECT * FROM post') as $row)
-  {  
-      
-    
-  print_r($row); }
-echo "</pre>";
-    
-$model = array(
-      'ID' => array(
-    'slug'=> 'slug',
-    'title'=>'headline',
-    'author'=>'usearID',
-    'date'=>'creation_time',
-    'text'=> 'text'
-    
-    
-} else { print_r($pdo->errorInfo());
-}
-
-
-
-$model += array(
+/*$model = array(
     '0' => array(
         'slug' => 'forsta-inlagget',
         'title' => 'Första inlägget',
@@ -94,13 +78,5 @@ $model += array(
         'date' => '2015-02-26',
         'text' => 'Här kommer senaste inlägget i sin helhet. Välkommen till Labb 3! Här övar vi på PHP för att bli duktiga webbserverprogrammerare. Detta är tredje labben och andra labben i en serie labbar som tillsammans bygger ihop detta projekt. Ett enkelt PHP-projekt men väl strukturerat och genomtänkt konstruerat.'
     )
-);
-
-echo "<pre>";
-foreach($pdo->query('SELECT * FROM ernst') 
-as $row) {
-print_r($row);
-echo "<pre>";    
+);*/
 ?>
-
-
